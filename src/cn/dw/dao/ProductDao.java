@@ -13,22 +13,8 @@ import cn.dw.utils.JdbcUtils;
 // Java仅仅支持单继承,因此super指代唯一父类
 public class ProductDao extends BaseDao {
 
-	public static void main(String[] args) {
-		ProductDao dao = new ProductDao();
-		// Product product = new Product();
-		// product.setId(4);
-		// product.setName("小米手机4");
-		// product.setPrice(2400.00);
-		// product.setRemark("商品备注4！");
-		// System.out.println(dao.update(product));
-		// int result = dao.save(product);
-		// System.out.println("result:" + result);
-//		int result = dao.delete(4);
-//		System.out.println(result);
-		Product product = dao.getById(100);
-		// 默认调用toString方法
-		System.out.println(product);
-	}
+	// main方法测试的缺点: 1: 不能保留测试痕迹  2：main写测试代码有侵入性
+	public static void main(String[] args) {}
 
 	public Product getById(int id) {
 		Product product = null;
