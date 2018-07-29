@@ -36,7 +36,7 @@ public class JdbcUtils {
 	public Connection getConnection() {
 		// 编写连接字符串的相关信息
 		try {
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/demo", "root", "root");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/demo?characterEncoding=UTF-8", "root", "root");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new RuntimeException(e);
