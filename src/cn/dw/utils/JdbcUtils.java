@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class JdbcUtils {
 	
 	public JdbcUtils() {
-		System.out.println("JdbcUtils........");
 	}
 
 	// 1: 连接数据库首先需要厂商提供驱动程序(使用说明书)
@@ -21,13 +20,10 @@ public class JdbcUtils {
 		// 有些错误在运行时候才能发现：例如连接数据库的账号和密码 , 运行时报错称为异常!
 		// 通过类全名,加载当前类信息 
 		try {
-			System.out.println("1");
 			// 此行代码实现了把驱动加载JVM中
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("2");
 		} catch (ClassNotFoundException e) {
 			// cache用来捕获异常,例如: 发邮箱到管理员，后面跳转到某个页面
-			System.out.println("3");
 			throw new RuntimeException(e);  // 将异常抛出
 		}
 	}
