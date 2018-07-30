@@ -2,6 +2,8 @@ package cn.dw.dao;
 
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,6 +24,14 @@ public class ProductDaoTest {
 	public static void tearDownAfterClass() throws Exception {
 		System.out.println("在所有测试方法之后有运行,通常用来销毁.......");
 		dao = null;
+	}
+	
+	@Test
+	public void testQueryName() {
+		ArrayList<Product> proList = dao.queryByName("");
+		for(Product temp:proList) {
+			System.out.println(temp);
+		}
 	}
 
 	@Test

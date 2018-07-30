@@ -3,9 +3,7 @@ package cn.dw.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
-
-import cn.dw.model.Product;
+import java.lang.*;  // 默认加载
 import cn.dw.utils.JdbcUtils;
 
 // 此类抽取访问数据库的共性代码
@@ -23,6 +21,7 @@ public class BaseDao extends Object {
 	// new Object[] { product.getName(), product.getPrice(), product.getRemark() }
 	// 抽取每个模块 insert update delete
 	protected int executeUpdate(String sql, Object[] param) {
+		String abc = null;
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		// 1: 获取数据库连接
 		Connection conn = null;
