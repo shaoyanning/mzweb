@@ -16,105 +16,33 @@ import cn.dw.utils.JdbcUtils;
 // Java仅仅支持单继承,因此super指代唯一父类
 public class ProductDao extends BaseDao {
 
-	// main方法测试的缺点: 1: 不能保留测试痕迹  2：main写测试代码有侵入性
+	// main方法测试的缺点: 1: 不能保留测试痕迹 2：main写测试代码有侵入性
 	public static void main(String[] args) {
 		// 数组限制大小,限制类型
-		int[] i = new int[] {1,2,3,4,5};
+		int[] i = new int[] { 1, 2, 3, 4, 5 };
 		// 集合: 不限大小与类型
 		ArrayList list = new ArrayList();
 		list.add("A");
 		list.add(new Date());
 		list.add(2);
 		// 泛型集合：不限大小,限制类型
-		ArrayList<String> sList=new ArrayList<String>();
+		ArrayList<String> sList = new ArrayList<String>();
 		sList.add("abc");
+		// 三元运算符
+		boolean isTrue = 5 > 40 ? true : false;
+		System.out.println(isTrue);
 	}
-	
-	public ArrayList<Product> queryByName(String keyword){
-		ArrayList<Product> proList = new ArrayList<Product>();
+
+	public ArrayList<Product> queryByName(String keyword) {
 		String sql = "select * from product where name like ?";
-		JdbcUtils utils = new JdbcUtils();
-		Connection conn = null;
-		PreparedStatement pre = null;
-		// 查询的结果集(存储了的就是返回table结构)
-		ResultSet rs = null;
-		try {
-			// 1: 获取Connection连接对象
-			conn = utils.getConnection();
-			// 2: PreparedStatement对象
-			pre = conn.prepareStatement(sql);
-			// 3: 给参数赋值 ? 从1开始
-			pre.setString(1, "%" + keyword + "%");
-			// 4: rs存储了结果集,即使没有数据,也存储了空结果集
-			rs = pre.executeQuery();
-			// rs光标(数据库的游标),默认在第一行之前,因为根据id主键查询,最多查询出一条记录(if)
-			while (rs.next()) { // next() 把当前光标向下移动一行,如果当前行有记录则返回的true
-				// 5: 数据库的每条记录,对应Java的对象
-				Product product = new Product();
-				// getInt("id") 获取id列的值并且以int类型
-				product.setId(rs.getInt("id"));
-				product.setPrice(rs.getDouble("price"));
-				product.setDate(rs.getDate("date"));
-				product.setRemark(rs.getString("remark"));
-				product.setName(rs.getString("name"));
-				proList.add(product);
-			}
-			return proList;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}finally {
-			try {
-				// 6: 关闭连接释放资源
-				rs.close();
-				pre.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		}
+		return super.queryByName(sql, new Object[] { "%" + keyword + "%" });
 	}
-	
 
 	public Product getById(int id) {
-		Product product = null;
 		String sql = "select * from product where id = ?";
-		// 1: 获取connection对象
-		JdbcUtils utils = new JdbcUtils();
-		Connection conn = null;
-		PreparedStatement pre = null;
-		// 查询的结果集(存储了的就是返回table结构)
-		ResultSet rs = null;
-		try {
-			conn = utils.getConnection();
-			pre = conn.prepareStatement(sql);
-			pre.setInt(1, id);
-			// rs存储了结果集,即使没有数据,也存储了空结果集
-			rs = pre.executeQuery();
-			// rs光标(数据库的游标),默认在第一行之前,因为根据id主键查询,最多查询出一条记录(if)
-			if (rs.next()) { // next() 把当前光标向下移动一行,如果当前行有记录则返回的true
-				// 数据库的每条记录,对应Java的对象
-				product = new Product();
-				// getInt("id") 获取id列的值并且以int类型
-				product.setId(rs.getInt("id"));
-				product.setPrice(rs.getDouble("price"));
-				product.setDate(rs.getDate("date"));
-				product.setRemark(rs.getString("remark"));
-				product.setName(rs.getString("name"));
-			}
-			return product;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}finally {
-			try {
-				rs.close();
-				pre.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		}
-
-		
+		// 因为是根据id查询,因此集合最多只有一个对象
+		ArrayList<Product> proList = super.queryByName(sql,new Object[] {id});
+		return proList.size()!=0 ? proList.get(0) : null;
 	}
 
 	public int update(Product product) {
