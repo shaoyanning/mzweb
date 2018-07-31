@@ -24,4 +24,12 @@ public class ProductService {
 	public int delete(int id) {
 		return productDao.delete(id);
 	}
+	
+	public Product getById(int id) {
+		return productDao.getById(id);
+	}
+	
+	public int update(Product product) {
+		return productDao.update(product);
+	}
 }

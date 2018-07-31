@@ -84,6 +84,23 @@ public class ProductServlet extends HttpServlet {
 			request.setAttribute("proList", proList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/query.jsp");
 			dispatcher.forward(request, response);
+		}else if(type.equals("getById")) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			Product product = productService.getById(id);
+			request.setAttribute("product", product);
+			// 由于当前servlet与update.jsp共享数据,因此只能用转发请求
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/update.jsp");
+			dispatcher.forward(request, response);
+		}else if(type.equals("update")) {
+			Product product = new Product();
+			product.setId(Integer.parseInt(request.getParameter("id")));
+			product.setName(request.getParameter("name"));
+			product.setPrice(Double.parseDouble(request.getParameter("money")));
+			product.setRemark(request.getParameter("remark"));
+			// 2: 调用业务逻辑
+			productService.update(product);
+			// 3: 跳转到查询页面
+			response.sendRedirect(request.getContextPath() + "/query.jsp");
 		}
 
 	}

@@ -28,7 +28,10 @@
 				<td>${product.name}</td>
 				<td>${product.price}</td>
 				<td>${product.remark}</td>
-				<td><a href="<%=request.getContextPath()%>/ProductServlet?id=${product.id}&type=delete">删除</a>|更新</td>
+				<td>
+				<a href="<%=request.getContextPath()%>/ProductServlet?id=${product.id}&type=delete">删除</a>|
+				<a href="<%=request.getContextPath()%>/ProductServlet?id=${product.id}&type=getById">更新</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
