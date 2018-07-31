@@ -45,8 +45,7 @@ public class ProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println(session.getId());
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8");
 		// 通过前端type的值,确定提交的请求类型
 		String type = request.getParameter("type");
 		if (type.equals("query")) {
