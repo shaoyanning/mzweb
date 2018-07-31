@@ -11,3 +11,10 @@ get,post提交区别:
    1: get通过url传递参数,不适合敏感数据
    
    2: 如果多媒体数据(图片、视频)只能用post提交
+   
+乱码问题解决方案：
+
+	1: workspace、项目编码、页面编码、request、url连接字符串 ?characterEncoding=UTF-8"
+	
+	2：先确定workspace编码在创建项目
+	
