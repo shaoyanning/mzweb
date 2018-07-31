@@ -9,24 +9,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cn.dw.model.Product;
 import cn.dw.service.ProductService;
 
 /**
- * Servlet implementation class ProductServlet
+ * Servlet、Filter、Listener 都是web组件，默认是单例模式，单例模式都要解决线程安全问题
+ * 
+ * 后面有了spring则 service dao都应该是单例模式
  */
 @WebServlet("/ProductServlet") // 可以接受前端请求的地址
 public class ProductServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
-	String keyword = null;
+	// 由于Servlet是单例,因此普通属性也只有一份,但是前台的请求是并发的。如果用单例的属性存储前端的数据可能会出现线程安全
+//	private String keyword = null;
 	// jsp ---> servlet --> service --> dao --> db
 	private ProductService productService = new ProductService();
 
 	public ProductServlet() {
 		super();
+		System.out.println("ProductServlet()......");
 	}
 
 	// 只能用来处理get请求 <a>也是get请求
@@ -40,12 +44,15 @@ public class ProductServlet extends HttpServlet {
 	// response: 封装从服务器端返回给客户端的数据
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		System.out.println(session.getId());
 		request.setCharacterEncoding("UTF-8");
 		// 通过前端type的值,确定提交的请求类型
 		String type = request.getParameter("type");
 		if (type.equals("query")) {
-			// 1: 获取查询的关键字 keyword
-			keyword = request.getParameter("keyword");
+			// 1: 获取查询的关键字 keyword，把关键存储在每个用户自己session中
+			String keyword = request.getParameter("keyword");
+			session.setAttribute("keyword", keyword);
 			// 2: 调用业务逻辑(此处不需要添加%%)
 			ArrayList<Product> proList = productService.queryByName(keyword);
 			request.setAttribute("proList", proList);
@@ -71,7 +78,8 @@ public class ProductServlet extends HttpServlet {
 			// 1: 获取删除id
 			int id = Integer.parseInt(request.getParameter("id"));
 			productService.delete(id);
-			// 2: 建议采用原来的关键字进行查询操作
+			// 2: 建议采用原来的关键字进行查询操作(原来关键字存储在session中)
+			String keyword = (String)session.getAttribute("keyword");
 			ArrayList<Product> proList = productService.queryByName(keyword);
 			request.setAttribute("proList", proList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/query.jsp");

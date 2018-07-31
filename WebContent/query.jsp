@@ -9,14 +9,14 @@
     <!--  request,session,application都称为内置对象 -->
     <!-- web.jsp 应该吧数据传递给productService,但是service不能接受http请求,因此java出现了servlet -->
 	<form action="<%=request.getContextPath()%>/ProductServlet" method="get">
-		商品名称:<input type="text" name="keyword" /><br />
+		商品名称:<input type="text" name="keyword" value="${sessionScope.keyword}" /><br />
 		<button type="submit">提交商品</button>
 		<input type="hidden" name="type" value="query"/>
 	</form>
 	<table width="600" border="1">
 		<tr>
 			<th>编码</th>
-			<th>名称</th>
+			<th>名称</th> 
 			<th>价格</th>
 			<th>备注</th>
 			<th>操作</th>
