@@ -14,6 +14,10 @@ import javax.servlet.annotation.WebFilter;
 // 此类是一个过滤器,主要用来过滤请求(自己配置过滤的URL地址)
 @WebFilter(urlPatterns="/*")
 public class EncodingFilter implements Filter {
+	
+	public EncodingFilter() {
+		System.out.println("EncodingFilter().........");
+	}
 
 	@Override
 	public void destroy() {
@@ -22,7 +26,7 @@ public class EncodingFilter implements Filter {
 	@Override  // 只要符合条件的请求,都会进入到此方法
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("doFilter..........");
+		System.out.println("EncodingFilter doFilter..........");
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		// 过滤完毕之后如果有下一个过滤链则跳转,否则跳转到目标页面
