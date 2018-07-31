@@ -12,6 +12,7 @@
 		商品价格:<input type="text" name="money" /><br />
 		商品备注:<textarea rows="5" cols="30" name="remark"></textarea><br />
 		<button type="submit">提交商品</button>
+		<input type="hidden" name="type" value="save"/>
 	</form>
 </body>
 </html>

@@ -20,6 +20,8 @@ import cn.dw.service.ProductService;
 public class ProductServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	String keyword = null;
 	// jsp ---> servlet --> service --> dao --> db
 	private ProductService productService = new ProductService();
 
@@ -27,21 +29,10 @@ public class ProductServlet extends HttpServlet {
 		super();
 	}
 
-	// 只能用来处理get请求   <a>也是get请求
+	// 只能用来处理get请求 <a>也是get请求
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 1: 获取查询的关键字 keyword
-		String keyword = request.getParameter("keyword");
-		// 2: 调用业务逻辑(此处不需要添加%%)
-		ArrayList<Product> proList = productService.queryByName(keyword);
-		request.setAttribute("proList", proList);
-		// 3: 重定向,让用户再去访问query.jsp (会生成一个新request对象)
-//		response.sendRedirect(request.getContextPath() + "/query.jsp");
-		// 转发请求,会把之前的request请求转发第二个页面,只能转发到系统内部资源(默认添加工程名)
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/query.jsp");
-		// 共享第一次请求的request对象
-		dispatcher.forward(request, response);
-		
+		doPost(request, response);
 	}
 
 	// 处理 post请求
@@ -50,28 +41,43 @@ public class ProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("----doPost----");
-		// 1: 获取前端的数据
-		Product product = new Product();
-		product.setName(request.getParameter("name"));
-		product.setPrice(Double.parseDouble(request.getParameter("money")));
-		product.setRemark(request.getParameter("remark"));
-		// 2: 调用业务逻辑
-		productService.save(product);
-		// 3: 跳转到查询页面
-//		response.sendRedirect("/mzweb/query.jsp");
-		response.sendRedirect(request.getContextPath() + "/query.jsp");
+		// 通过前端type的值,确定提交的请求类型
+		String type = request.getParameter("type");
+		if (type.equals("query")) {
+			// 1: 获取查询的关键字 keyword
+			keyword = request.getParameter("keyword");
+			// 2: 调用业务逻辑(此处不需要添加%%)
+			ArrayList<Product> proList = productService.queryByName(keyword);
+			request.setAttribute("proList", proList);
+			// 3: 重定向,让用户再去访问query.jsp (会生成一个新request对象)
+			// response.sendRedirect(request.getContextPath() + "/query.jsp");
+			// 转发请求,会把之前的request请求转发第二个页面,只能转发到系统内部资源(默认添加工程名)
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/query.jsp");
+			// 共享第一次请求的request对象
+			dispatcher.forward(request, response);
+		} else if (type.equals("save")) {
+			System.out.println("----doPost----");
+			// 1: 获取前端的数据
+			Product product = new Product();
+			product.setName(request.getParameter("name"));
+			product.setPrice(Double.parseDouble(request.getParameter("money")));
+			product.setRemark(request.getParameter("remark"));
+			// 2: 调用业务逻辑
+			productService.save(product);
+			// 3: 跳转到查询页面
+//			response.sendRedirect("/mzweb/query.jsp");
+			response.sendRedirect(request.getContextPath() + "/query.jsp");
+		} else if (type.equals("delete")) {
+			// 1: 获取删除id
+			int id = Integer.parseInt(request.getParameter("id"));
+			productService.delete(id);
+			// 2: 建议采用原来的关键字进行查询操作
+			ArrayList<Product> proList = productService.queryByName(keyword);
+			request.setAttribute("proList", proList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/query.jsp");
+			dispatcher.forward(request, response);
+		}
+
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -11,6 +11,7 @@
 	<form action="<%=request.getContextPath()%>/ProductServlet" method="get">
 		商品名称:<input type="text" name="keyword" /><br />
 		<button type="submit">提交商品</button>
+		<input type="hidden" name="type" value="query"/>
 	</form>
 	<table width="600" border="1">
 		<tr>
@@ -21,13 +22,13 @@
 			<th>操作</th>
 		</tr>
 		<!-- 有多少结果集对象,则循环多少次,前端Java有JSTL标签可以获取request内置对象中的数据 -->
-		<c:forEach items="${requestScope.proList}" var="product">
+		<c:forEach items="${requestScope.proList}" var="product" varStatus="num">
 			<tr>
-				<td>${product.id}</td>
+				<td>${num.count}</td>
 				<td>${product.name}</td>
 				<td>${product.price}</td>
 				<td>${product.remark}</td>
-				<td>删除|更新</td>
+				<td><a href="<%=request.getContextPath()%>/ProductServlet?id=${product.id}&type=delete">删除</a>|更新</td>
 			</tr>
 		</c:forEach>
 	</table>
