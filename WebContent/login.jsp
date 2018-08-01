@@ -10,7 +10,7 @@
 	<form action="<%=request.getContextPath()%>/AccountServlet" method="post">
 		账号:<input type="text" name="username" /><br />
 		密码:<input type="text" name="password" /><br />
-		${requestScope.error}
+		${error}
 		<button type="submit">登录</button>
 	</form>
 </body>

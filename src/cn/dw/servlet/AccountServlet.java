@@ -31,6 +31,7 @@ public class AccountServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		if(username.equals(password)) {
+			//  AccountService: 定义  public Account login(String name,String password)
 			// 此处是模拟,应该AccountService --> AccountDao --> db 来完成登录的验证操作
 			// 登录成功,把用户信息存储到session中
 			HttpSession session = request.getSession();
@@ -39,10 +40,11 @@ public class AccountServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/admin/index.jsp");
 		}else {
 			// 登录失败,应该给客户提示
-			request.setAttribute("error", "账号密码不正确");
+			request.setAttribute("error", "request: 账号密码不正确");
 			// 当前accountServlet与login.jsp共享错误消息,因此用转发操作
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
+//			response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 	}
 

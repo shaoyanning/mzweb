@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.dw.model.Product;
 import cn.dw.utils.JdbcUtils;
@@ -12,8 +13,8 @@ import cn.dw.utils.JdbcUtils;
 // 此类抽取访问数据库的共性代码
 public class BaseDao extends Object {
 	
-	protected ArrayList<Product> queryByName(String sql,Object[] param){
-		ArrayList<Product> proList = new ArrayList<Product>();
+	protected List<Product> queryByName(String sql,Object[] param){
+		List<Product> proList = new ArrayList<Product>();
 		JdbcUtils utils = new JdbcUtils();
 		Connection conn = null;
 		PreparedStatement pre = null;

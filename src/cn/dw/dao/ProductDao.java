@@ -33,7 +33,7 @@ public class ProductDao extends BaseDao {
 		System.out.println(isTrue);
 	}
 
-	public ArrayList<Product> queryByName(String keyword) {
+	public List<Product> queryByName(String keyword) {
 		String sql = "select * from product where name like ?";
 		return super.queryByName(sql, new Object[] { "%" + keyword + "%" });
 	}
@@ -41,7 +41,7 @@ public class ProductDao extends BaseDao {
 	public Product getById(int id) {
 		String sql = "select * from product where id = ?";
 		// 因为是根据id查询,因此集合最多只有一个对象
-		ArrayList<Product> proList = super.queryByName(sql,new Object[] {id});
+		List<Product> proList = super.queryByName(sql,new Object[] {id});
 		return proList.size()!=0 ? proList.get(0) : null;
 	}
 

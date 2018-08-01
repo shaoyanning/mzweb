@@ -17,7 +17,7 @@ public class ProductService {
 		return productDao.save(product);
 	}
 
-	public ArrayList<Product> queryByName(String keyword) {
+	public List<Product> queryByName(String keyword) {
 		return productDao.queryByName(keyword);
 	}
 

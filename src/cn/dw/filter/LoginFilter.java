@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cn.dw.model.Product;
+
 @WebFilter(urlPatterns="/admin/*")
 public class LoginFilter implements Filter {
 

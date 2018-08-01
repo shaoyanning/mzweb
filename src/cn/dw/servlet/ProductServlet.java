@@ -1,7 +1,7 @@
 package cn.dw.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,7 +53,7 @@ public class ProductServlet extends HttpServlet {
 			String keyword = request.getParameter("keyword");
 			session.setAttribute("keyword", keyword);
 			// 2: 调用业务逻辑(此处不需要添加%%)
-			ArrayList<Product> proList = productService.queryByName(keyword);
+			List<Product> proList = productService.queryByName(keyword);
 			request.setAttribute("proList", proList);
 			// 3: 重定向,让用户再去访问query.jsp (会生成一个新request对象)
 			// response.sendRedirect(request.getContextPath() + "/query.jsp");
@@ -79,7 +79,7 @@ public class ProductServlet extends HttpServlet {
 			productService.delete(id);
 			// 2: 建议采用原来的关键字进行查询操作(原来关键字存储在session中)
 			String keyword = (String)session.getAttribute("keyword");
-			ArrayList<Product> proList = productService.queryByName(keyword);
+			List<Product> proList = productService.queryByName(keyword);
 			request.setAttribute("proList", proList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/query.jsp");
 			dispatcher.forward(request, response);

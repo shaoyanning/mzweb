@@ -6,5 +6,8 @@
 </head>
 <body>
       您好${sessionScope.admin},欢迎来到后台管理页面
+   <hr />
+   <%=application%><br />
+   ${applicationScope.proList}
 </body>
 </html>

@@ -1,8 +1,6 @@
 package cn.dw.dao;
 
-import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -28,7 +26,7 @@ public class ProductDaoTest {
 	
 	@Test
 	public void testQueryName() {
-		ArrayList<Product> proList = dao.queryByName("");
+		List<Product> proList = dao.queryByName("");
 		for(Product temp:proList) {
 			System.out.println(temp);
 		}

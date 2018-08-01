@@ -16,7 +16,7 @@ public class JdbcUtils {
 	// 4: java中运行一次的代码应该写在静态块中
 	static {
 		// 当前class文件 JdbcUtils.class在加载到JVM中此块会执行且执行一次
-		System.out.println("-----static------");
+		System.out.println("-----JdbcUtils static------");
 		// 有些错误在运行时候才能发现：例如连接数据库的账号和密码 , 运行时报错称为异常!
 		// 通过类全名,加载当前类信息 
 		try {
