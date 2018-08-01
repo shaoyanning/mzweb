@@ -2,20 +2,27 @@ package cn.dw.dao;
 
 import java.util.List;
 
+import javax.naming.Context;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.dw.model.Product;
 
 public class ProductDaoTest {
 
 	private static ProductDao dao = null;
+	private static ApplicationContext context = null; 
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		System.out.println("在所有测试方法之前有运行,通常用来初始化测试对象.......");
-		dao = new ProductDao();
+		context = new ClassPathXmlApplicationContext("spring-bean.xml");
+//		dao = (ProductDao)context.getBean("productDao");
+		dao = context.getBean("productDao", ProductDao.class);
 	}
 
 	@AfterClass

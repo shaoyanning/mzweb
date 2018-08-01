@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<!-- c3p0 取代 jdbcUtils -->
+	<bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 在源码中有相应的set方法,此处才可以做相应配置 -->
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo?characterEncoding=UTF-8" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+	</bean>
+	<!-- jdbctTemplate(spring jdbc解决方案),将会取代baseDao
+		  baseDaoy依赖jdbcUtils  因此 jdbctTemplate依赖c3p0
+	 -->
+	 <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+	 	 <property name="dataSource" ref="ds" />
+	 </bean>
+	 
+	 <!-- productDao继承BaseDao, 因此现在应该依赖 JdbcTemplate -->
+	 <bean id="productDao" class="cn.dw.dao.ProductDao">
+	 	<property name="jdbcTemplate" ref="jt" />
+	 </bean>
+	 
+</beans>
+
+
+
+
+
+
+
