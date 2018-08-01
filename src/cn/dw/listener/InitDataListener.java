@@ -7,6 +7,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.junit.validator.PublicClassValidator;
+
 import cn.dw.model.Product;
 import cn.dw.service.ProductService;
 // ServletContext: 就是当前项目上下文环境(mzweb+tomcat)
@@ -14,6 +16,10 @@ import cn.dw.service.ProductService;
 public class InitDataListener implements ServletContextListener {
 	
 	private ProductService productService = new ProductService();
+	
+	public InitDataListener() {
+		System.out.println("InitDataListener().........");
+	}
 	
 	@Override
 	public void contextInitialized(ServletContextEvent event) {

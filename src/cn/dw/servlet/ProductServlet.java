@@ -33,6 +33,13 @@ public class ProductServlet extends HttpServlet {
 		System.out.println("ProductServlet()......");
 	}
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		System.out.println("ProductServlet destroy()......");
+	}
+
 	// 只能用来处理get请求 <a>也是get请求
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

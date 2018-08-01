@@ -18,3 +18,11 @@ get,post提交区别:
 	
 	2：先确定workspace编码在创建项目
 	
+三大web组件的生命周期:
+
+   ServletContextListener > filter > servlet
+
+   1: servelt: 第一次访问时创建, 单例模式，项目关闭时销毁
+   2: filter:  启动时创建 、单例、项目关闭时销毁
+   3: Listener: 启动时创建、单例、项目关闭时销毁
+	

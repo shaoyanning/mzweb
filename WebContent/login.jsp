@@ -10,7 +10,11 @@
 	<form action="<%=request.getContextPath()%>/AccountServlet" method="post">
 		账号:<input type="text" name="username" /><br />
 		密码:<input type="text" name="password" /><br />
-		${error}
+		爱好:<input type="checkbox" name="like" value="1" />
+		<input type="checkbox" name="like" value="2" />
+		<input type="checkbox" name="like" value="3" />
+		${requestScope.error}| 
+		<%=request.getAttribute("error")%>
 		<button type="submit">登录</button>
 	</form>
 </body>

@@ -21,6 +21,7 @@ public class EncodingFilter implements Filter {
 
 	@Override
 	public void destroy() {
+		System.out.println("EncodingFilter destroy().........");
 	}
 
 	@Override  // 只要符合条件的请求,都会进入到此方法

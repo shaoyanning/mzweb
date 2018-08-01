@@ -70,6 +70,7 @@ public class BaseDao extends Object {
 		PreparedStatement pre = null;
 		try {
 			conn = jdbcUtils.getConnection();
+			System.out.println(conn);
 			// 2: 通过connection对象生成预编译sql语句
 			pre = conn.prepareStatement(sql);
 			// 3: 给?赋值相应的参数(下标从1开始)

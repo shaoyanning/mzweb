@@ -1,6 +1,7 @@
 package cn.dw.servlet;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,9 +28,18 @@ public class AccountServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("tomacat实例化:" + request);
 		// 完成登录功能的验证(假设账号的密码相同则代表登录成功)
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String[] params = request.getParameterValues("like");
+		for(String temp:params) {
+			System.out.println(temp);
+		}
+		Enumeration<String> enums = request.getParameterNames();
+		while(enums.hasMoreElements()) {
+			System.out.println(enums.nextElement());
+		}
 		if(username.equals(password)) {
 			//  AccountService: 定义  public Account login(String name,String password)
 			// 此处是模拟,应该AccountService --> AccountDao --> db 来完成登录的验证操作
