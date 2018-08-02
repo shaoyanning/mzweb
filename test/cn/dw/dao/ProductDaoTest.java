@@ -42,7 +42,7 @@ public class ProductDaoTest {
 
 	@Test
 	public void testGetById() {
-		Product product = service.getById(2);
+		Product product = service.getById(1);
 		System.out.println(product);
 	}
 

@@ -1,8 +1,12 @@
 package cn.dw.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import cn.dw.model.Product;
 
@@ -17,17 +21,25 @@ public class ProductDao {
 	}
 
 	public List<Product> queryByName(String keyword) {
-		// String sql = "select * from product where name like ?";
-		// return super.queryByName(sql, new Object[] { "%" + keyword + "%" });
-		return null;
+		 String sql = "select * from product where name like ?";
+		 // 如果数据的字段、与当前类的属性名称一致则可以采用 BeanPropertyRowMapper 自动匹配
+		return jdbcTemplate.query(sql, new Object[] {"%" + keyword + "%"}, new BeanPropertyRowMapper<Product>(Product.class));
 	}
 
 	public Product getById(int id) {
-		// String sql = "select * from product where id = ?";
-		// // 因为是根据id查询,因此集合最多只有一个对象
-		// List<Product> proList = super.queryByName(sql,new Object[] {id});
-		// return proList.size()!=0 ? proList.get(0) : null;
-		return null;
+		String sql = "select * from product where id = ?";
+		// 直接new接口(必须要实现接口定义的方法), forOject如果没有查询出来会抛出异常
+		return jdbcTemplate.queryForObject(sql, new Object[]{id},new RowMapper<Product>() {
+			@Override
+			public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Product product = new Product();
+				product.setId(rs.getInt("id"));
+				product.setName(rs.getString("name"));
+				product.setRemark(rs.getString("remark"));
+				product.setPrice(rs.getDouble("price"));
+				return product;
+			}
+		});
 	}
 
 	public int update(Product product) {
