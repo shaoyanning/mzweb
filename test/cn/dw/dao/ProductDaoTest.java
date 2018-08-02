@@ -11,10 +11,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.dw.model.Product;
+import cn.dw.service.ProductService;
 
 public class ProductDaoTest {
 
-	private static ProductDao dao = null;
+	private static ProductService service = null;
 	private static ApplicationContext context = null; 
 
 	@BeforeClass
@@ -22,18 +23,18 @@ public class ProductDaoTest {
 		System.out.println("在所有测试方法之前有运行,通常用来初始化测试对象.......");
 		context = new ClassPathXmlApplicationContext("spring-bean.xml");
 //		dao = (ProductDao)context.getBean("productDao");
-		dao = context.getBean("productDao", ProductDao.class);
+		service = context.getBean("ps", ProductService.class);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		System.out.println("在所有测试方法之后有运行,通常用来销毁.......");
-		dao = null;
+		service = null;
 	}
 	
 	@Test
 	public void testQueryName() {
-		List<Product> proList = dao.queryByName("");
+		List<Product> proList = service.queryByName("");
 		for(Product temp:proList) {
 			System.out.println(temp);
 		}
@@ -41,7 +42,7 @@ public class ProductDaoTest {
 
 	@Test
 	public void testGetById() {
-		Product product = dao.getById(2);
+		Product product = service.getById(2);
 		System.out.println(product);
 	}
 
@@ -52,12 +53,12 @@ public class ProductDaoTest {
 		product.setName("小米手机4");
 		product.setPrice(2400.00);
 		product.setRemark("商品备注4！");
-		dao.update(product);
+		service.update(product);
 	}
 
 	@Test
 	public void testDelete() {
-		int result = dao.delete(4);
+		int result = service.delete(4);
 		System.out.println(result);
 	}
 
@@ -67,7 +68,7 @@ public class ProductDaoTest {
 		product.setName("小米手机4");
 		product.setPrice(2400.00);
 		product.setRemark("商品备注4！");
-		System.out.println(dao.save(product));
+		System.out.println(service.save(product));
 	}
 
 }

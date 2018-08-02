@@ -9,7 +9,11 @@ import cn.dw.model.Product;
 // 业务逻辑 --> 数据访问层
 public class ProductService {
 	// new对象的缺点: 不能控制数量、类型、时间 
-	ProductDao productDao = new ProductDao();
+	ProductDao productDao = null;
+	
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 	
 	// 正常此方法应该有项目的业务
 	public int save(Product product) {
