@@ -49,10 +49,10 @@ public class ProductDaoTest {
 	@Test
 	public void testUpdate() {
 		Product product = new Product();
-		product.setId(3);
-		product.setName("小米手机4");
+		product.setId(1);
+		product.setName("锤子手机2");
 		product.setPrice(2400.00);
-		product.setRemark("商品备注4！");
+		product.setRemark("商品备注！");
 		service.update(product);
 	}
 

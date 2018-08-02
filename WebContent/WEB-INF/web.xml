@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>mzweb</display-name>
-  <welcome-file-list>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>login.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>mzweb</display-name>
+	<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<!-- servlet-name: 类似spring中的id -->
+		<servlet-name>DispatcherServlet</servlet-name>
+		<!-- web.xml编写前端控制器,配置请求过滤和加载配置文件 -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 默认Servlet是第一次请求的时候访问,此处希望它项目启动的时候访问(需要加载mvc配置文件) -->
+		<!-- 启动时加载spring mvc配置文件 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!-- 
+			<param-value>classpath:spring-mvc.xml,classpath:spring-bean.xml</param-value>
+			 -->
+			<param-value>classpath:spring-*.xml</param-value>
+		</init-param>
+		<!-- 数值越小优先级越高,随着项目启动时启动 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<!-- 与上面名称相同 -->
+		<servlet-name>DispatcherServlet</servlet-name>
+		<!-- 只有*.mvc的请求才会被处理(*.css,*.js,*.html将不会被mvc处理) -->
+		<url-pattern>*.mvc</url-pattern>
+	</servlet-mapping>
+
 </web-app>

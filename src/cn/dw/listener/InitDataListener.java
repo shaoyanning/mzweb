@@ -12,7 +12,7 @@ import org.junit.validator.PublicClassValidator;
 import cn.dw.model.Product;
 import cn.dw.service.ProductService;
 // ServletContext: 就是当前项目上下文环境(mzweb+tomcat)
-@WebListener  // 配置当前类为监听器
+// @WebListener  // 配置当前类为监听器
 public class InitDataListener implements ServletContextListener {
 	
 	private ProductService productService = new ProductService();

@@ -12,7 +12,6 @@ public class Product extends Object{
 	private Date date;
 	
 	public Integer getId() {
-		System.out.println("getId-->" + id);
 		return id;
 	}
 	public void setId(Integer id) {

@@ -7,12 +7,11 @@
 <body>
     
     <!-- web.jsp 应该吧数据传递给productService,但是service不能接受http请求,因此java出现了servlet -->
-	<form action="<%=request.getContextPath()%>/ProductServlet" method="post">
+	<form action="<%=request.getContextPath()%>/product/save.mvc" method="post">
 		商品名称:<input type="text" name="name" /><br />
-		商品价格:<input type="text" name="money" /><br />
+		商品价格:<input type="text" name="price" /><br />
 		商品备注:<textarea rows="5" cols="30" name="remark"></textarea><br />
 		<button type="submit">提交商品</button>
-		<input type="hidden" name="type" value="save"/>
 	</form>
 </body>
 </html>

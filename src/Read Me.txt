@@ -25,4 +25,17 @@ get,post提交区别:
    1: servelt: 第一次访问时创建, 单例模式，项目关闭时销毁
    2: filter:  启动时创建 、单例、项目关闭时销毁
    3: Listener: 启动时创建、单例、项目关闭时销毁
+   
+Spring + Spring MVC 整合实现 (jar + mvc配置文件)
+
+1: web.xml中配置mvc的前端控制器(过滤请求、加载mvc配置文件)
+
+2: 创建productController替换ProductServlet
+
+3：jsp访问servlet的url地址,替换成controller并且添加*.mvc后缀(可以删除隐藏域)
 	
+4: web.xml中之前只spring-mvc.xml但是所有service/dao都配置在spring-bean.xml因此需要添加如下配置:
+
+	4.1: <param-value>classpath:spring-*.xml</param-value>
+
+5: 页面中的save和更新的价格属性之前money,修改为price(jsp中表单的name字段,要与controller中类的属性匹配)

@@ -8,10 +8,9 @@
 <body>
     <!--  request,session,application都称为内置对象 -->
     <!-- web.jsp 应该吧数据传递给productService,但是service不能接受http请求,因此java出现了servlet -->
-	<form action="<%=request.getContextPath()%>/ProductServlet" method="get">
+	<form action="<%=request.getContextPath()%>/product/query.mvc" method="get">
 		商品名称:<input type="text" name="keyword" value="${sessionScope.keyword}" /><br />
 		<button type="submit">提交商品</button>
-		<input type="hidden" name="type" value="query"/>
 	</form>
 	<table width="600" border="1">
 		<tr>
@@ -29,8 +28,8 @@
 				<td>${product.price}</td>
 				<td>${product.remark}</td>
 				<td>
-				<a href="<%=request.getContextPath()%>/ProductServlet?id=${product.id}&type=delete">删除</a>|
-				<a href="<%=request.getContextPath()%>/ProductServlet?id=${product.id}&type=getById">更新</a>
+				<a href="<%=request.getContextPath()%>/product/delete.mvc?id=${product.id}">删除</a>|
+				<a href="<%=request.getContextPath()%>/product/getById.mvc?id=${product.id}">更新</a>
 				</td>
 			</tr>
 		</c:forEach>
