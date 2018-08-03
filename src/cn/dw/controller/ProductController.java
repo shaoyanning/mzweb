@@ -1,29 +1,37 @@
 package cn.dw.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.dw.model.Product;
-import cn.dw.service.ProductService;
 
 // 此Controller取代了Servlet但是需要继承任何父类
 // @WebServlet
 @RequestMapping("/product")
 public class ProductController extends BaseController {
+	
+	public static void main(String[] args) {
+		System.out.println(UUID.randomUUID().toString());
+	}
 
 	// servlet有doGet doPost,现在可以自定义方法
 	// 1: 获取数据,已经有mvc框架搞定
 	@RequestMapping("/save")
-	public String save(Product product) {
-		// 1: 获取前端的数据,MVC支持自动匹配
+	public String save(Product product,MultipartFile img) {
+		String fileName = img.getOriginalFilename();
+		String path = application.getRealPath("/image/");
+		try {
+			img.transferTo(new File(path + fileName));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		// 应该完成图片上传然后在把图片的名称存储到数据库中
+		System.out.println(fileName);
 		// 2: 调用业务逻辑
 		productService.save(product);
 		// 3: 跳转到查询页面 (转发与重定向在mvc都不需工程名,项目自动添加)

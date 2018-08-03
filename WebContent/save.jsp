@@ -22,7 +22,7 @@
 	<form action="<%=request.getContextPath()%>/product/save.mvc" method="post" enctype="multipart/form-data">
 		商品名称:<input type="text" name="name" /><br />
 		商品价格:<input type="text" name="price" /><br />
-		商品备注:<textarea rows="5" cols="30" name="remark"></textarea>
+		商品备注:<textarea rows="5" cols="30" name="remark"></textarea><br />
 		图片: <input type="file" name="img" />
 		<br />
 		<select name="sel" id="sel">
@@ -30,5 +30,7 @@
 		</select>
 		<button type="submit">提交商品</button>
 	</form>
+	
+	
 </body>
 </html>
