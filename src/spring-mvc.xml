@@ -16,10 +16,17 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd
         <!-- 去查找 spring-bean.xml中的 id=ps -->
    		<property name="productService" ref="ps" />
    </bean>
+   
+    <bean class="cn.dw.controller.CategoryController" />
+   
    <!-- 开启mvc注解 -->
    <mvc:annotation-driven />
    <!-- 必须配置注解扫描,否则mvc配置的注解无效 -->
    <context:component-scan base-package="cn.dw.controller" />
+   <!-- id名称不能修改,因为在源码中指定 
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+   -->
+   
 	
 </beans>
 

@@ -1,3 +1,10 @@
+Spring MVC返回JSON格式:
+
+   1: 导入js资源时<script></script>不能在写代码 (先css在js)
+   2: 需要添加两个json包文件: jackson.jar
+   3：controller中需要配置： @ResponseBody 并且返回的参数Object
+
+
 常见的web开发异常:
 
    1: http://localhost:8080/ 提示连接失败可能是tomcat没有启动,获取ip端口错误
